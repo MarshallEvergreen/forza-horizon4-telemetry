@@ -25,6 +25,7 @@ dist/
 
 # JetBrains IDE
 .idea/
+.api/.idea/
 
 # Unit test reports
 TEST*.xml
@@ -69,3 +70,5 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+api/venv
