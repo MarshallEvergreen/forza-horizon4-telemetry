@@ -13,9 +13,6 @@ app = Flask(__name__)
 
 @app.route('/telemetry')
 def get_telemetry_packet():
-    telemetry = None
-    while not telemetry:
-        message, address = server_socket.recvfrom(1024)
-        telemetry = ForzaDataPacket(message, packet_format='fh4')
-
+    message, address = server_socket.recvfrom(1024)
+    telemetry = ForzaDataPacket(message, packet_format='fh4')
     return telemetry.to_dict(params)
