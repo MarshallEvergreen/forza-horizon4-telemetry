@@ -5,9 +5,12 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
+import Spring from '@material-ui/icons/ViewHeadline';
+import DriveEtaIcon from '@material-ui/icons/DriveEta';
 import Grid from "@material-ui/core/Grid";
 import LineChart from "./lineChart";
+import RPM from "./rpm";
+import TyreTemperature from "./tyreTempChart";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -76,9 +79,8 @@ export default function VerticalTabs() {
                 aria-label="Vertical tabs example"
                 className={classes.tabs}
             >
-                <Tab label="Suspension Travel" icon={<ShoppingBasket/>} {...a11yProps(0)} />
-                <Tab label="Item Two" icon={<ShoppingBasket/>}{...a11yProps(1)} />
-                <Tab label="Item Three" icon={<ShoppingBasket/>}{...a11yProps(2)} />
+                <Tab label="Suspension Travel" icon={<Spring/>} {...a11yProps(0)} />
+                <Tab label="Engine" icon={<DriveEtaIcon/>}{...a11yProps(1)} />
             </Tabs>
             <TabPanel className={classes.tabPanel} value={value} index={0}>
                 <Grid container spacing={3}>
@@ -97,10 +99,18 @@ export default function VerticalTabs() {
                 </Grid>
             </TabPanel>
             <TabPanel className={classes.tabPanel} value={value} index={1}>
-                Item Two
-            </TabPanel>
-            <TabPanel className={classes.tabPanel} value={value} index={2}>
-                Item Three
+                <Grid container spacing={3}>
+                    <Grid item xs={6}>
+                        <RPM/>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <TyreTemperature/>
+                    </Grid>
+                    <Grid item xs={6}>
+                    </Grid>
+                    <Grid item xs={6}>
+                    </Grid>
+                </Grid>
             </TabPanel>
         </div>
     );
