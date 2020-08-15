@@ -1,5 +1,6 @@
 import React from "react";
 import {Line} from 'react-chartjs-2';
+import io from "socket.io-client";
 
 class LineChart extends React.Component {
     constructor(props) {
@@ -45,7 +46,7 @@ class LineChart extends React.Component {
         return (
             <div>
                 <h6>{this.props.telemetry}</h6>
-                <Line ref={(reference) => this.lineReference = reference}
+                <Line ref={(reference) => this.chartRef = reference}
                       data={this.state.data}
                       options={this.state.options}/>
             </div>
@@ -54,24 +55,28 @@ class LineChart extends React.Component {
     }
 
     componentDidMount() {
-        let that = this;
+        var telemetryEndpoint = "http://localhost:5000";
+        this.socket = io.connect(telemetryEndpoint, {
+            reconnection: true,
+        });
+        this.socket.on("telemetry response", data => {
+            if (data.is_race_on) {
+                this.state.data.labels.push(data.timestamp_ms);
+                this.state.data.datasets[0].data.push(data[this.props.telemetry]);
+            }
+        });
         this.timerID = setInterval(
             () => {
-                fetch("/telemetry").then(r => r.json()).then(function (data) {
-                    const currentLabels = that.state.data.labels;
-                    const currentData = that.state.data.datasets[0].data;
-                    if (data.is_race_on && that.lineReference) {
-                        currentLabels.push(data.timestamp_ms);
-                        currentData.push(data[that.props.telemetry]);
-                        that.lineReference.chartInstance.update()
-                    }
-                });
+                if (this.chartRef) {
+                    this.chartRef.chartInstance.update()
+                }
             },
-            200
+            1000
         );
     }
 
     componentWillUnmount() {
+        this.socket.close();
         clearInterval(this.timerID);
     }
 }
