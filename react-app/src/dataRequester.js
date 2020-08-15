@@ -9,6 +9,7 @@ class Dashboard extends React.Component {
 
     componentWillUnmount() {
         this.socket.close();
+        clearInterval(this.timerID);
         console.log("Data Requester unmounted");
     }
 

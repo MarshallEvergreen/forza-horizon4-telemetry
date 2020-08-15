@@ -55,10 +55,10 @@ class LineChart extends React.Component {
     }
 
     componentDidMount() {
+        console.log("Mounting", this.props.telemetry);
         var telemetryEndpoint = "http://localhost:5000";
-        this.socket = io.connect(telemetryEndpoint, {
-            reconnection: true,
-        });
+        let linechart = this.chartRef.chartInstance;
+        this.socket = io.connect(telemetryEndpoint);
         this.socket.on("telemetry response", data => {
             if (data.is_race_on) {
                 this.state.data.labels.push(data.timestamp_ms);
@@ -67,8 +67,9 @@ class LineChart extends React.Component {
         });
         this.timerID = setInterval(
             () => {
-                if (this.chartRef) {
-                    this.chartRef.chartInstance.update()
+                if (linechart) {
+                    linechart.update()
+
                 }
             },
             1000
@@ -76,8 +77,10 @@ class LineChart extends React.Component {
     }
 
     componentWillUnmount() {
+        console.log("Unmounting", this.props.telemetry);
         this.socket.close();
         clearInterval(this.timerID);
+
     }
 }
 

@@ -56,11 +56,10 @@ class TyreTemperature extends React.Component {
     }
 
     componentDidMount() {
+        console.log("Mounting tyre graph");
         var telemetryEndpoint = "http://localhost:5000";
         let that = this;
-        this.socket = io.connect(telemetryEndpoint, {
-            reconnection: true,
-        });
+        this.socket = io.connect(telemetryEndpoint);
         this.socket.on("telemetry response", data => {
             if (data.is_race_on && this.chartRef) {
                 if (data.is_race_on && that.chartRef) {
@@ -78,7 +77,8 @@ class TyreTemperature extends React.Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this.timerID);
+        this.socket.close();
+        console.log("Mounting tyre graph");
     }
 }
 

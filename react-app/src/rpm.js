@@ -47,10 +47,9 @@ class RPM extends React.Component {
     }
 
     componentDidMount() {
+        console.log("Mounting rpm graph");
         var telemetryEndpoint = "http://localhost:5000";
-        this.socket = io.connect(telemetryEndpoint, {
-            reconnection: true,
-        });
+        this.socket = io.connect(telemetryEndpoint);
         this.socket.on("telemetry response", data => {
             if (data.is_race_on && this.chartRef) {
                 if (data.is_race_on && this.chartRef) {
@@ -62,7 +61,8 @@ class RPM extends React.Component {
     }
 
     componentWillUnmount() {
-        this.socket.close()
+        this.socket.close();
+        console.log("unmounting rpm graph");
     }
 }
 
