@@ -1,6 +1,5 @@
 import React from "react";
 import {Line} from 'react-chartjs-2';
-import io from "socket.io-client";
 
 class LineChart extends React.Component {
     constructor(props) {
@@ -56,20 +55,14 @@ class LineChart extends React.Component {
 
     componentDidMount() {
         console.log("Mounting", this.props.telemetry);
-        var telemetryEndpoint = "http://localhost:5000";
         let linechart = this.chartRef.chartInstance;
-        this.socket = io.connect(telemetryEndpoint);
-        this.socket.on("telemetry response", data => {
-            if (data.is_race_on) {
-                this.state.data.labels.push(data.timestamp_ms);
-                this.state.data.datasets[0].data.push(data[this.props.telemetry]);
-            }
-        });
+        let that = this;
         this.timerID = setInterval(
             () => {
                 if (linechart) {
+                    that.state.data.labels = this.props.data["timestamp_ms"];
+                    that.state.data.datasets[0].data = this.props.data[this.props.telemetry];
                     linechart.update()
-
                 }
             },
             1000
@@ -78,9 +71,7 @@ class LineChart extends React.Component {
 
     componentWillUnmount() {
         console.log("Unmounting", this.props.telemetry);
-        this.socket.close();
         clearInterval(this.timerID);
-
     }
 }
 

@@ -4,11 +4,9 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import NavBar from "./navBar";
-import DataRequester from "./dataRequester";
 
 ReactDOM.render(
     <React.StrictMode>
-        <DataRequester/>
         <NavBar/>
         <App/>
     </React.StrictMode>,

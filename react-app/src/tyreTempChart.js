@@ -1,6 +1,5 @@
 import React from "react";
 import {Bar} from "react-chartjs-2";
-import io from "socket.io-client";
 
 class TyreTemperature extends React.Component {
     constructor(props) {
@@ -57,28 +56,28 @@ class TyreTemperature extends React.Component {
 
     componentDidMount() {
         console.log("Mounting tyre graph");
-        var telemetryEndpoint = "http://localhost:5000";
+        let tyreChart = this.chartRef.chartInstance;
         let that = this;
-        this.socket = io.connect(telemetryEndpoint);
-        this.socket.on("telemetry response", data => {
-            if (data.is_race_on && this.chartRef) {
-                if (data.is_race_on && that.chartRef) {
+        this.timerID = setInterval(
+            () => {
+                if (tyreChart) {
                     that.state.data.datasets[0].data =
                         [
-                            that.convert(data["tire_temp_FL"]),
-                            that.convert(data["tire_temp_FR"]),
-                            that.convert(data["tire_temp_RL"]),
-                            that.convert(data["tire_temp_RR"])
+                            that.convert(this.props.data["tire_temp_FL"]),
+                            that.convert(this.props.data["tire_temp_FR"]),
+                            that.convert(this.props.data["tire_temp_RL"]),
+                            that.convert(this.props.data["tire_temp_RR"])
                         ];
-                    that.chartRef.chartInstance.update()
+                    tyreChart.update()
                 }
-            }
-        });
+            },
+            500
+        );
     }
 
     componentWillUnmount() {
-        this.socket.close();
         console.log("Mounting tyre graph");
+        clearInterval(this.timerID);
     }
 }
 
