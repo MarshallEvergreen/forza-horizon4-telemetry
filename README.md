@@ -9,10 +9,10 @@ web sockets to display the telemetry data.
 A Full list of the data available is documented here: https://github.com/nettrom/forza_motorsport/blob/master/configuration_file.md. 
 
 For now the normalised suspension travel of each spring is diplayed..
-![Alt text](screenshots/NormalisedSuspensionTravel.PNG?raw=true "NormalisedSuspensionTravel")
+![Alt text](https://github.com/MarshallEvergreen/forzaHorizonTelemetry/blob/master/screenshots/NormalisedSuspensionTravel.PNG?raw=true "NormalisedSuspensionTravel")
 
 On the Engine page the type temperatures, amount of revs of the maximum used and best/current lap time.
-![Alt text](screenshots/Engine.PNG?raw=true "NormalisedSuspensionTravel")
+![Alt text](https://github.com/MarshallEvergreen/forzaHorizonTelemetry/blob/master/screenshots/Engine.PNG?raw=true "NormalisedSuspensionTravel")
 
 ## Requirements
 Python3
@@ -59,7 +59,7 @@ npm run build
 
 In Forza make sure you have data out enabled and set the port to 5685 (Ip doesn't matter)
 
-![Alt text](screenshots/FH4DataOut.PNG?raw=true "NormalisedSuspensionTravel")
+![Alt text](https://github.com/MarshallEvergreen/forzaHorizonTelemetry/blob/master/screenshots/FH4DataOut.png?raw=true "FH4DataOut")
 
 From the repository root run  
 
