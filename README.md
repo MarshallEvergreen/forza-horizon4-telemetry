@@ -57,7 +57,7 @@ npm run build
 
 ## Usage
 
-In Forza make sure you have data out enabled and set the port to 5685 (Ip doesn't matter)
+In Forza make sure you have data out enabled and set the port to 5685 and the Ip address to that of whatever device you are running this on.
 
 ![Alt text](https://github.com/MarshallEvergreen/forzaHorizonTelemetry/blob/master/screenshots/FH4DataOut.png?raw=true "FH4DataOut")
 
